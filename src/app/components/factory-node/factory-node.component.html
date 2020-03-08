@@ -1,0 +1,7 @@
+<button class="btn list-group-item-action">{{factoryNode.name}}</button>
+
+<ul *ngIf="factoryNode.children">
+  <li *ngFor="let childNode of factoryNode.children; trackBy: trackChildFn">
+    <app-child-node [childNode]="childNode"></app-child-node>
+  </li>
+</ul>
