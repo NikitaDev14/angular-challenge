@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MenuService } from 'src/app/services/menu.service';
 import { Observable } from 'rxjs';
-import { filter, map, merge, tap } from 'rxjs/operators';
+import { filter, map, merge, shareReplay, tap } from 'rxjs/operators';
 import { MenuPosition } from 'src/app/models/menu.models';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/states/app.state';
 import { GenerateAction, RemoveAction } from 'src/app/actions/tree.action';
 import { selectIsMenuOpened, selectMenuContext, selectMenuPosition } from 'src/app/selectors/menu.selectors';
 import { CloseAction } from 'src/app/actions/menu.action';
-import { FactoryNode } from 'src/app/models/tree.models';
+import { FactoryNode, GenerateTreePayload } from 'src/app/models/tree.models';
 
 @Component({
   selector: 'app-menu',
@@ -19,7 +19,7 @@ import { FactoryNode } from 'src/app/models/tree.models';
 export class MenuComponent implements OnInit {
   isShownContextMenu$: Observable<boolean>;
   position$: Observable<MenuPosition>;
-  allowRemoveAction$: Observable<boolean>;
+  isRootContext: Observable<boolean>;
 
   @ViewChild('menuElement') menuElementRef: ElementRef;
 
@@ -43,15 +43,16 @@ export class MenuComponent implements OnInit {
       map((isOpenedMenu: boolean) => isOpenedMenu),
     );
 
-    this.position$ = this.store.select(selectMenuPosition);
+    this.position$ = this.store.select(selectMenuPosition).pipe(shareReplay(1));
 
-    this.allowRemoveAction$ = this.store.select(selectMenuContext).pipe(
-      map((contextNodeId: FactoryNode) => contextNodeId !== null),
+    this.isRootContext = this.store.select(selectMenuContext).pipe(
+      map((contextNodeId: FactoryNode) => contextNodeId === null),
+      shareReplay(1),
     );
   }
 
-  generateClicked() {
-    this.store.dispatch(new GenerateAction());
+  generateClicked($event: GenerateTreePayload) {
+    this.store.dispatch(new GenerateAction($event));
     this.store.dispatch(new CloseAction());
   }
 

@@ -15,6 +15,12 @@ export interface FactoryNode {
 
 export type TreeNode = FactoryNode | ChildNode;
 
+export interface GenerateTreePayload {
+  count: number;
+  lowerBound: number;
+  upperBound: number;
+}
+
 export interface TreePayload {
   tree: TreeNode[];
   contextNode: FactoryNode;

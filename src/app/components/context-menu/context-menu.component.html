@@ -1,8 +1,17 @@
-<div class="dropdown-menu" [ngStyle]="{'left.px': position.xCoordinate, 'top.px': position.yCoordinate}">
-  <button class="dropdown-item btn" (click)="generateClick()">Generate</button>
+<div
+  class="dropdown-menu"
+  [ngStyle]="{
+    'left.px': (position$ | async).xCoordinate,
+    'top.px': (position$ | async).yCoordinate}"
+>
+  <app-generate-form
+    [isRootContext$]="isRootContext$"
+    (submitted)="generateClick($event)">
+  </app-generate-form>
+  <div class="dropdown-divider"></div>
   <button
     class="dropdown-item btn"
-    [ngClass]="{'disabled': !allowRemoveAction}"
+    [ngClass]="{'disabled': isRootContext$ | async}"
     (click)="removeClick()">
     Remove
   </button>

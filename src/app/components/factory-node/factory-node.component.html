@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between align-items-center">
   <button class="btn list-group-item-action" [appMenuInitialize]="factoryNode">{{factoryNode.name}}</button>
 
-  <span class="badge badge-primary badge-pill">{{factoryNode.lowerBound}}:{{factoryNode.upperBound}}</span>
+  <span class="badge badge-primary badge-pill">{{factoryNode.lowerBound}} : {{factoryNode.upperBound}}</span>
 </div>
 
 <ul *ngIf="factoryNode.children">

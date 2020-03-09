@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { FactoryNode, ChildNode, TreeNode } from 'src/app/models/tree.models';
+import { FactoryNode, ChildNode, TreeNode, GenerateTreePayload } from 'src/app/models/tree.models';
 import { getChildTime } from 'src/app/utils';
+import { Constants } from 'src/app/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TreeService {
-  readonly RANDOM_LIMIT = 15;
-
-  private getRandomNumber(max = this.RANDOM_LIMIT, min = 1): number {
+  private getRandomNumber(max = Constants.maxChildrenCount, min = 1): number {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
@@ -16,8 +15,11 @@ export class TreeService {
     return Math.random().toString(36).substr(2, 5);
   }
 
-  private generateChildren(parent: FactoryNode): ChildNode[] {
-    return [...new Array(this.getRandomNumber())].map((): ChildNode => {
+  private generateChildren(
+    parent: FactoryNode,
+    params: GenerateTreePayload,
+  ): ChildNode[] {
+    return [...new Array(params.count)].map((): ChildNode => {
       return {
         id: this.getRandomString(),
         name: this.getRandomNumber(parent.upperBound, parent.lowerBound).toString(),
@@ -27,30 +29,36 @@ export class TreeService {
     });
   }
 
-  private generateTree(): FactoryNode[] {
-    return [...new Array(this.getRandomNumber())].map((): FactoryNode => {
-      const lowerBound = this.getRandomNumber();
+  private generateTree(params: GenerateTreePayload): FactoryNode[] {
+    return [...new Array(params.count)].map((): FactoryNode => {
+      const lowerBound = this.getRandomNumber(params.upperBound - 1, params.lowerBound);
 
       const result: FactoryNode = {
         id: this.getRandomString(),
         name: this.getRandomString(),
         lowerBound,
-        upperBound: lowerBound + this.getRandomNumber(),
+        upperBound: this.getRandomNumber(params.upperBound, lowerBound),
         children: [],
       };
 
       return {
         ...result,
-        children: this.generateChildren(result),
+        children: this.generateChildren(result,{
+          ...params,
+          count: this.getRandomNumber(),
+        }),
       };
     });
   }
 
-  generate(generationContext: FactoryNode): TreeNode[] {
+  generate(
+    generationContext: FactoryNode,
+    generationParams: GenerateTreePayload,
+  ): TreeNode[] {
     if (generationContext !== null) {
-      return this.generateChildren(generationContext);
+      return this.generateChildren(generationContext, generationParams);
     }
 
-    return this.generateTree();
+    return this.generateTree(generationParams);
   }
 }

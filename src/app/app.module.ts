@@ -14,6 +14,8 @@ import { TreeService } from 'src/app/services/tree.service';
 import { MenuService } from 'src/app/services/menu.service';
 import { appReducers } from 'src/app/reducers';
 import { TreeContainerComponent } from './containers/tree-container/tree-container.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { GenerateFormComponent } from './components/generate-form/generate-form.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +27,11 @@ import { TreeContainerComponent } from './containers/tree-container/tree-contain
     MenuComponent,
     MenuInitializeDirective,
     TreeContainerComponent,
+    GenerateFormComponent,
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([TreeEffects]),
   ],

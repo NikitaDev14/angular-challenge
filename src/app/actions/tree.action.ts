@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { FactoryNode, TreePayload } from 'src/app/models/tree.models';
+import { FactoryNode, GenerateTreePayload, TreePayload } from 'src/app/models/tree.models';
 
 export const GENERATE_ACTION = '[TreeActions] GENERATE';
 export const GENERATED_ACTION = '[TreeActions] GENERATED';
@@ -9,6 +9,7 @@ export const REMOVED_ACTION = '[TreeActions] DO_REMOVE';
 
 export class GenerateAction implements Action {
   public readonly type = GENERATE_ACTION;
+  constructor(public payload: GenerateTreePayload) { }
 }
 
 export class GeneratedAction implements Action {

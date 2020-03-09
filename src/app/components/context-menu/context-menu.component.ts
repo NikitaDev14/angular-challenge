@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { MenuPosition } from 'src/app/models/menu.models';
+import { GenerateTreePayload } from 'src/app/models/tree.models';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-context-menu',
@@ -9,14 +11,14 @@ import { MenuPosition } from 'src/app/models/menu.models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContextMenuComponent {
-  @Input() position: MenuPosition;
-  @Input() allowRemoveAction: boolean;
+  @Input() position$: Observable<MenuPosition>;
+  @Input() isRootContext$: Observable<boolean>;
 
-  @Output() generateClicked: EventEmitter<void> = new EventEmitter();
+  @Output() generateClicked: EventEmitter<GenerateTreePayload> = new EventEmitter();
   @Output() removeClicked: EventEmitter<void> = new EventEmitter();
 
-  generateClick() {
-    this.generateClicked.emit();
+  generateClick($event: GenerateTreePayload) {
+    this.generateClicked.emit($event);
   }
 
   removeClick() {
