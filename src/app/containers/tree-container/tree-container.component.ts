@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ChildNode, FactoryNode } from 'src/app/models/entity.models';
-import { selectFactories } from 'src/app/selectors';
+import { FactoryNode } from 'src/app/models/tree.models';
+import { selectTree } from 'src/app/selectors/tree.selectors';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/state';
+import { AppState } from 'src/app/states/app.state';
 
 @Component({
   selector: 'app-tree-container',
@@ -19,7 +19,7 @@ export class TreeContainerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.treeNodes = this.store.select(selectFactories);
+    this.treeNodes = this.store.select(selectTree);
   }
 
   trackFactoryFn(item: FactoryNode) {

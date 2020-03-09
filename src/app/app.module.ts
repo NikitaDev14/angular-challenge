@@ -9,12 +9,11 @@ import { MenuComponent } from 'src/app/containers/menu-container/menu-container.
 import { MenuInitializeDirective } from './directives/menu-initialize.directive';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from 'src/app/effects';
+import { TreeEffects } from 'src/app/effects/tree.effects.js';
 import { TreeService } from 'src/app/services/tree.service';
-import { ContextMenuService } from 'src/app/services/context-menu.service';
+import { MenuService } from 'src/app/services/menu.service';
 import { appReducers } from 'src/app/reducers';
 import { TreeContainerComponent } from './containers/tree-container/tree-container.component';
-import { ChildNodeComponent } from './components/child-node/child-node.component';
 
 @NgModule({
   declarations: [
@@ -26,14 +25,13 @@ import { ChildNodeComponent } from './components/child-node/child-node.component
     MenuComponent,
     MenuInitializeDirective,
     TreeContainerComponent,
-    ChildNodeComponent
   ],
   imports: [
     BrowserModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([TreeEffects]),
   ],
-  providers: [TreeService, ContextMenuService],
+  providers: [TreeService, MenuService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

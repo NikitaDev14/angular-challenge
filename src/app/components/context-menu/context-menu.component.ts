@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { MenuPosition } from 'src/app/models/context-menu.models';
+import { MenuPosition } from 'src/app/models/menu.models';
 
 @Component({
   selector: 'app-context-menu',
@@ -10,10 +10,16 @@ import { MenuPosition } from 'src/app/models/context-menu.models';
 })
 export class ContextMenuComponent {
   @Input() position: MenuPosition;
+  @Input() allowRemoveAction: boolean;
 
   @Output() generateClicked: EventEmitter<void> = new EventEmitter();
+  @Output() removeClicked: EventEmitter<void> = new EventEmitter();
 
   generateClick() {
     this.generateClicked.emit();
+  }
+
+  removeClick() {
+    this.removeClicked.emit();
   }
 }

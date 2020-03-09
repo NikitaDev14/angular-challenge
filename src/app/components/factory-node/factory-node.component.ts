@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ChildNode, FactoryNode } from 'src/app/models/entity.models';
+import { ChildNode, FactoryNode } from 'src/app/models/tree.models';
 
 @Component({
   selector: 'app-factory-node',

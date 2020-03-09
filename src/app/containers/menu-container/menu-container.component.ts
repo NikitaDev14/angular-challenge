@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ContextMenuService } from 'src/app/services/context-menu.service';
+import { MenuService } from 'src/app/services/menu.service';
 import { Observable } from 'rxjs';
-import { map, merge, tap } from 'rxjs/operators';
-import { ActionContext, MenuPosition } from 'src/app/models/context-menu.models';
+import { filter, map, merge, tap } from 'rxjs/operators';
+import { MenuPosition } from 'src/app/models/menu.models';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/state';
-import { GenerateAction } from 'src/app/actions';
-import { FactoryNode } from 'src/app/models/entity.models';
-import { selectFactories } from 'src/app/selectors';
+import { AppState } from 'src/app/states/app.state';
+import { GenerateAction, RemoveAction } from 'src/app/actions/tree.action';
+import { selectIsMenuOpened, selectMenuContext, selectMenuPosition } from 'src/app/selectors/menu.selectors';
+import { CloseAction } from 'src/app/actions/menu.action';
+import { FactoryNode } from 'src/app/models/tree.models';
 
 @Component({
   selector: 'app-menu',
@@ -16,42 +17,46 @@ import { selectFactories } from 'src/app/selectors';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuComponent implements OnInit {
-  isShownContextMenu: Observable<boolean>;
-
-  position: MenuPosition;
+  isShownContextMenu$: Observable<boolean>;
+  position$: Observable<MenuPosition>;
+  allowRemoveAction$: Observable<boolean>;
 
   @ViewChild('menuElement') menuElementRef: ElementRef;
 
   constructor(
     private elementRef: ElementRef,
-    private contextMenuService: ContextMenuService,
+    private contextMenuService: MenuService,
     private store: Store<AppState>,
   ) { }
 
   ngOnInit() {
-    this.isShownContextMenu = this.contextMenuService.globalClick().pipe(
-      map((event: Event) => {
-        return this.elementRef.nativeElement.contains(event.target);
+    this.isShownContextMenu$ = this.contextMenuService.globalClick().pipe(
+      tap((event: Event) => {
+        if (!this.elementRef.nativeElement.contains(event.target)) {
+          this.store.dispatch(new CloseAction());
+        }
       }),
+      filter(() => false),
       merge(
-        this.contextMenuService.onOpenMenu().pipe(
-          tap((event: MouseEvent | null) => {
-            if (event !== null) {
-              this.position = {
-                xCoordinate: event.clientX,
-                yCoordinate: event.clientY,
-              };
-            }
-          }),
-          map((event) => Boolean(event)),
-        ),
+        this.store.select(selectIsMenuOpened),
       ),
       map((isOpenedMenu: boolean) => isOpenedMenu),
     );
+
+    this.position$ = this.store.select(selectMenuPosition);
+
+    this.allowRemoveAction$ = this.store.select(selectMenuContext).pipe(
+      map((contextNodeId: FactoryNode) => contextNodeId !== null),
+    );
   }
 
-  generateClicked($event) {
-    this.contextMenuService.onMenuItemClick();
-    this.store.dispatch(new GenerateAction(ActionContext.ROOT));
+  generateClicked() {
+    this.store.dispatch(new GenerateAction());
+    this.store.dispatch(new CloseAction());
+  }
+
+  removeClicked() {
+    this.store.dispatch(new RemoveAction());
+    this.store.dispatch(new CloseAction());
   }
 }

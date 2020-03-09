@@ -14,3 +14,8 @@ export interface FactoryNode {
 }
 
 export type TreeNode = FactoryNode | ChildNode;
+
+export interface TreePayload {
+  tree: TreeNode[];
+  contextNode: FactoryNode;
+}

@@ -1,3 +1,9 @@
 <div class="dropdown-menu" [ngStyle]="{'left.px': position.xCoordinate, 'top.px': position.yCoordinate}">
   <button class="dropdown-item btn" (click)="generateClick()">Generate</button>
+  <button
+    class="dropdown-item btn"
+    [ngClass]="{'disabled': !allowRemoveAction}"
+    (click)="removeClick()">
+    Remove
+  </button>
 </div>
