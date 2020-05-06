@@ -22,8 +22,8 @@ export class MenuInitializeDirective {
     this.store.dispatch(new OpenAction({
       contextNode: this.appMenuInitialize,
       position: {
-        xCoordinate: $event.clientX,
-        yCoordinate: $event.clientY,
+        xCoordinate: $event.pageX,
+        yCoordinate: $event.pageY,
       },
     }));
   }

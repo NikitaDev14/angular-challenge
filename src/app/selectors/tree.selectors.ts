@@ -6,8 +6,5 @@ const selectState = (state: AppState) => state.tree;
 
 export const selectTree = createSelector(
   selectState,
-  (state: TreeState) => {
-    console.log(state.tree);
-    return state.tree;
-  },
+  (state: TreeState) => state.tree,
 );
