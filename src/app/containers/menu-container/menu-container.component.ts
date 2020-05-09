@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MenuService } from 'src/app/services/menu.service';
-import { Observable } from 'rxjs';
-import { filter, map, merge, shareReplay, tap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 import { MenuPosition } from 'src/app/models/menu.models';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/states/app.state';
@@ -16,10 +16,12 @@ import { FactoryNode, GenerateTreePayload } from 'src/app/models/tree.models';
   styleUrls: ['./menu-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnDestroy {
   isShownContextMenu$: Observable<boolean>;
   position$: Observable<MenuPosition>;
   isRootContext: Observable<boolean>;
+
+  globalClickSubscription$: Subscription;
 
   @ViewChild('menuElement') menuElementRef: ElementRef;
 
@@ -30,18 +32,13 @@ export class MenuComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.isShownContextMenu$ = this.contextMenuService.globalClick().pipe(
-      tap((event: Event) => {
-        if (!this.elementRef.nativeElement.contains(event.target)) {
-          this.store.dispatch(new CloseAction());
-        }
-      }),
-      filter(() => false),
-      merge(
-        this.store.select(selectIsMenuOpened),
-      ),
-      map((isOpenedMenu: boolean) => isOpenedMenu),
-    );
+    this.isShownContextMenu$ = this.store.select(selectIsMenuOpened);
+
+    this.globalClickSubscription$ = this.contextMenuService.globalClick().subscribe((event: Event) => {
+      if (!this.elementRef.nativeElement.contains(event.target)) {
+        this.store.dispatch(new CloseAction());
+      }
+    });
 
     this.position$ = this.store.select(selectMenuPosition).pipe(shareReplay(1));
 
@@ -49,6 +46,10 @@ export class MenuComponent implements OnInit {
       map((contextNodeId: FactoryNode) => contextNodeId === null),
       shareReplay(1),
     );
+  }
+
+  ngOnDestroy() {
+    this.globalClickSubscription$.unsubscribe();
   }
 
   generateClicked($event: GenerateTreePayload) {

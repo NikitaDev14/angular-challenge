@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { fromEvent as observableFromEvent, merge, Observable, Subject } from 'rxjs';
+import {
+  fromEvent as observableFromEvent,
+  merge as observableMerge,
+  Observable
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +11,7 @@ import { fromEvent as observableFromEvent, merge, Observable, Subject } from 'rx
 export class MenuService {
 
   globalClick(): Observable<Event> {
-    return merge(
+    return observableMerge(
       observableFromEvent(document, 'click'),
       observableFromEvent(document, 'contextmenu'),
     );

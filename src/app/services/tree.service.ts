@@ -43,7 +43,7 @@ export class TreeService {
 
       return {
         ...result,
-        children: this.generateChildren(result,{
+        children: this.generateChildren(result, {
           ...params,
           count: this.getRandomNumber(),
         }),
