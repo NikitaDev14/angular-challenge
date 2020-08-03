@@ -16,6 +16,7 @@ import { appReducers } from 'src/app/reducers';
 import { TreeContainerComponent } from './containers/tree-container/tree-container.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GenerateFormComponent } from './components/generate-form/generate-form.component';
+import {ConnectionService} from './services/connection.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { GenerateFormComponent } from './components/generate-form/generate-form.
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([TreeEffects]),
   ],
-  providers: [TreeService, MenuService],
+  providers: [TreeService, MenuService, ConnectionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
