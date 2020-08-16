@@ -16,7 +16,12 @@ import { appReducers } from 'src/app/reducers';
 import { TreeContainerComponent } from './containers/tree-container/tree-container.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GenerateFormComponent } from './components/generate-form/generate-form.component';
-import {ConnectionService} from './services/connection.service';
+import { ConnectionService } from './services/connection.service';
+import { ClockComponent } from './components/clock/clock.component';
+import { ClockContainer } from './containers/clock-container/clock-container.component';
+import { ClockSettingsComponent } from './components/clock-settings/clock-settings.component';
+import { ClockExtractPipe } from './pipes/clock-substract.pipe';
+import { AddZeroAheadPipe } from './pipes/add-zero-ahead.pipe';
 
 @NgModule({
   declarations: [
@@ -29,6 +34,11 @@ import {ConnectionService} from './services/connection.service';
     MenuInitializeDirective,
     TreeContainerComponent,
     GenerateFormComponent,
+    ClockComponent,
+    ClockContainer,
+    ClockSettingsComponent,
+    ClockExtractPipe,
+    AddZeroAheadPipe,
   ],
   imports: [
     BrowserModule,

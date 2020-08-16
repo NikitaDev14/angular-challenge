@@ -1,0 +1,15 @@
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" [checked]="showSeconds" id="showSecondsSetting"
+         (click)="showSecondsChanged($event.target)">
+  <label class="form-check-label" for="showSecondsSetting">
+    Show seconds
+  </label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" [checked]="dividersAnimationEnabled" id="dividersAnimationSetting"
+         (click)="dividersAnimationChanged($event.target)">
+  <label class="form-check-label" for="dividersAnimationSetting">
+    Enable dividers animation
+  </label>
+</div>

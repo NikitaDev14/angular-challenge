@@ -1,11 +1,11 @@
 import { initialTreeState, TreeState } from 'src/app/states/tree.state';
-import { REMOVED_ACTION, GENERATED_ACTION, TreeAction } from 'src/app/actions/tree.action';
+import { REMOVED_ACTION, GENERATED_ACTION, TreeActions } from 'src/app/actions/tree.actions';
 import { ChildNode, FactoryNode } from 'src/app/models/tree.models';
 import { findIndexById } from 'src/app/utils';
 
 export const treeReducer = (
   state = initialTreeState,
-  action: TreeAction,
+  action: TreeActions,
 ): TreeState => {
   switch (action.type) {
     case GENERATED_ACTION: {

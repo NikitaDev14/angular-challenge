@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { RemovedAction, GENERATE_ACTION, GenerateAction, GeneratedAction, REMOVE_ACTION } from 'src/app/actions/tree.action';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { TreeService } from 'src/app/services/tree.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/states/app.state';
 import { selectMenuContext } from 'src/app/selectors/menu.selectors';
+import { RemovedAction, GENERATE_ACTION, GenerateAction, GeneratedAction, REMOVE_ACTION } from 'src/app/actions/tree.actions';
 import { FactoryNode, GenerateTreePayload } from 'src/app/models/tree.models';
 
 @Injectable()

@@ -1,0 +1,9 @@
+.clock-divider.animate {
+  animation: tick 2s steps(2, start) infinite;
+}
+
+@keyframes tick {
+  to {
+    visibility: hidden;
+  }
+}

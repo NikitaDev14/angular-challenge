@@ -26,7 +26,7 @@ export class RemovedAction implements Action {
   constructor(public payload: FactoryNode) { }
 }
 
-export type TreeAction =
+export type TreeActions =
   GenerateAction |
   GeneratedAction |
   RemoveAction |

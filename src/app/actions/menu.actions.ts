@@ -14,6 +14,6 @@ export class CloseAction implements Action {
   public readonly type = CLOSE_ACTION;
 }
 
-export type MenuAction =
+export type MenuActions =
   OpenAction |
   CloseAction;

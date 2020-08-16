@@ -5,9 +5,9 @@ import { map, shareReplay } from 'rxjs/operators';
 import { MenuPosition } from 'src/app/models/menu.models';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/states/app.state';
-import { GenerateAction, RemoveAction } from 'src/app/actions/tree.action';
+import { GenerateAction, RemoveAction } from 'src/app/actions/tree.actions';
 import { selectIsMenuOpened, selectMenuContext, selectMenuPosition } from 'src/app/selectors/menu.selectors';
-import { CloseAction } from 'src/app/actions/menu.action';
+import { CloseAction } from 'src/app/actions/menu.actions';
 import { FactoryNode, GenerateTreePayload } from 'src/app/models/tree.models';
 
 @Component({

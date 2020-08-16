@@ -11,6 +11,6 @@ export class DisconnectedAction implements Action {
   public readonly type = DISCONNECTED_ACTION;
 }
 
-export type ConnectionAction =
+export type ConnectionActions =
   ConnectedAction |
   DisconnectedAction;

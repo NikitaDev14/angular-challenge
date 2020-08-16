@@ -1,7 +1,7 @@
 import { Directive, HostListener, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/states/app.state';
-import { OpenAction } from 'src/app/actions/menu.action';
+import { OpenAction } from 'src/app/actions/menu.actions';
 import { FactoryNode } from 'src/app/models/tree.models';
 
 @Directive({

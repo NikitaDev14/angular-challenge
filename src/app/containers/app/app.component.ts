@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AppState} from 'src/app/states/app.state';
-import {Store} from '@ngrx/store';
-import {Observable, Subscription} from 'rxjs';
-import {selectIsOnline} from 'src/app/selectors/connection.selectors';
-import {ConnectionService} from 'src/app/services/connection.service';
-import {ConnectedAction, DisconnectedAction} from 'src/app/actions/connectionAction';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AppState } from 'src/app/states/app.state';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { selectIsOnline } from 'src/app/selectors/connection.selectors';
+import { ConnectionService } from 'src/app/services/connection.service';
+import { ConnectedAction, DisconnectedAction } from 'src/app/actions/connection.actions';
 
 @Component({
   selector: 'app-root',

@@ -1,0 +1,11 @@
+<app-clock-settings
+  [showSeconds]="showSeconds$ | async"
+  [dividersAnimationEnabled]="dividersAnimationEnabled$ | async"
+  (onShowSecondsChanged)="showSecondsChanged($event)"
+  (onDividersAnimationChanged)="dividersAnimationSettingChanged($event)">
+</app-clock-settings>
+
+<app-clock-component
+  [showSeconds$]="showSeconds$"
+  [enableAnimation$]="dividersAnimationEnabled$">
+</app-clock-component>
