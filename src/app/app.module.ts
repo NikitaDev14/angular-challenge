@@ -1,12 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from 'src/app/containers/app/app.component';
-import { appReducers } from 'src/app/reducers';
-import { ConnectionService } from './services/connection.service';
 import { ClockModule } from './modules/clock/clock.module';
+import { ConnectionMonitorModule } from './modules/connection-monitor/connection-monitor.module';
 
 @NgModule({
   declarations: [
@@ -14,11 +12,10 @@ import { ClockModule } from './modules/clock/clock.module';
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
-    StoreModule.forRoot(appReducers),
+    StoreModule.forRoot({}),
     ClockModule,
+    ConnectionMonitorModule,
   ],
-  providers: [ConnectionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
