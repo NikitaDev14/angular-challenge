@@ -1,7 +1,0 @@
-<app-context-menu
-  *ngIf="isShownContextMenu$ | async"
-  [position$]="position$"
-  [isRootContext$]="isRootContext"
-  (generateClicked)="generateClicked($event)"
-  (removeClicked)="removeClicked()"
-></app-context-menu>

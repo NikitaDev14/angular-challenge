@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectDividersAnimationEnabled, selectShowSeconds } from '../../selectors/clock.selectors';
-import { AppState } from '../../states/app.state';
-import { EnableDividersAnimationAction, ShowSecondsAction } from '../../actions/clock.actions';
 import { shareReplay } from 'rxjs/operators';
+
+import { selectDividersAnimationEnabled, selectShowSeconds } from '../../selectors/clock.selectors';
+import { EnableDividersAnimationAction, ShowSecondsAction } from '../../actions/clock.actions';
+import { ClockFeatureState } from '../../states';
 
 @Component({
   selector: 'app-clock',
@@ -17,7 +18,7 @@ export class ClockContainer implements OnInit {
   dividersAnimationEnabled$: Observable<boolean>;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<ClockFeatureState>,
   ) { }
 
   ngOnInit(): void {
