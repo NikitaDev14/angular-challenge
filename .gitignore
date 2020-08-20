@@ -44,3 +44,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# envs
+/src/app/modules/stock/constants.ts

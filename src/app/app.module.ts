@@ -5,6 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { AppComponent } from 'src/app/containers/app/app.component';
 import { ClockModule } from './modules/clock/clock.module';
 import { ConnectionMonitorModule } from './modules/connection-monitor/connection-monitor.module';
+import { StockModule } from './modules/stock/stock.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ConnectionMonitorModule } from './modules/connection-monitor/connection
     StoreModule.forRoot({}),
     ClockModule,
     ConnectionMonitorModule,
+    StockModule,
   ],
   bootstrap: [AppComponent]
 })

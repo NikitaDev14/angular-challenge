@@ -20,6 +20,7 @@
       "app",
       "kebab-case"
     ],
+    "import-spacing": false,
     "import-blacklist": [
       true,
       "rxjs/Rx"
