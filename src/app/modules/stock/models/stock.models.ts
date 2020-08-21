@@ -2,6 +2,11 @@ export interface Serializable {
   serialize(): string;
 }
 
+export enum MessageTypes {
+  SUBSCRIBE = 'subscribe',
+  TRADE = 'trade',
+}
+
 export class SymbolSubscription implements Serializable {
   constructor(
     private symbol: string,
@@ -9,8 +14,15 @@ export class SymbolSubscription implements Serializable {
 
   serialize(): string {
     return JSON.stringify({
-      type: 'subscribe',
+      type: MessageTypes.SUBSCRIBE,
       symbol: this.symbol,
     });
   }
+}
+
+export interface Trade {
+  symbol: string;
+  price: number;
+  date: Date;
+  volume: number;
 }

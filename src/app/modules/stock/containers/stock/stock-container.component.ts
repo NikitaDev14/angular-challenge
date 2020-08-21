@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-import { SymbolSubscription } from '../../models/stock.models';
-import { FinnhubService } from '../../services/finnhub.service';
 import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
+
+import { FinnhubService } from '../../services/finnhub.service';
 
 @Component({
   selector: 'app-stock',
@@ -12,7 +10,6 @@ import { filter } from 'rxjs/operators';
 })
 export class StockContainer implements OnInit {
 
-  trade$: Observable<object>;
   isConnected$: Observable<boolean>;
 
   constructor(
@@ -20,13 +17,7 @@ export class StockContainer implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.trade$ = this.finnhubService.getSocket().pipe(
-      filter((message: any) => message.data),
-    );
-
     this.isConnected$ = this.finnhubService.isConnected$();
-
-    this.finnhubService.send(new SymbolSubscription('NVDA'));
   }
 
 }
