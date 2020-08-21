@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ClockSettingsComponent } from './components/clock-settings/clock-settings.component';
 import { ClockComponent } from './components/clock/clock.component';
 import { ClockContainer } from './containers/clock-container/clock-container.component';
-import { ClockExtractPipe } from './pipes/clock-substract.pipe';
-import { AddZeroAheadPipe } from './pipes/add-zero-ahead.pipe';
 import { StoreModule } from '@ngrx/store';
 import { clockReducers } from './reducers';
 
@@ -13,8 +11,6 @@ import { clockReducers } from './reducers';
     ClockSettingsComponent,
     ClockComponent,
     ClockContainer,
-    ClockExtractPipe,
-    AddZeroAheadPipe,
   ],
   exports: [
     ClockContainer,

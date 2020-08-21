@@ -1,9 +1,9 @@
 <h1>
-  {{currentDate$ | async | clockExtract: 'hours' | addZeroAhead}}
+  {{currentDate$ | async | date: 'H'}}
   <span class="clock-divider" [ngClass]="{'animate': animateDivider$ | async}">:</span>
-  {{currentDate$ | async | clockExtract: 'minutes' | addZeroAhead}}
+  {{currentDate$ | async | date: 'mm'}}
   <span *ngIf="showSeconds$ | async">
     <span class="clock-divider" [ngClass]="{'animate': animateDivider$ | async}">:</span>
-    {{currentDate$ | async | clockExtract: 'seconds' | addZeroAhead}}
+    {{currentDate$ | async | date: 'ss'}}
   </span>
 </h1>
