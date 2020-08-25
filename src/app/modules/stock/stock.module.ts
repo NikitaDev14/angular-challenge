@@ -10,6 +10,10 @@ import { WatchListItemComponent } from './components/watch-list-item/watch-list-
 import { TradesOfPipe } from './pipes/trades-of.pipe';
 import { GetPipe } from './pipes/get.pipe';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { stockReducers } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { StockEffects } from './effects/stock.effects';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     HttpClientModule,
+    StoreModule.forFeature('stock', stockReducers),
+    EffectsModule.forFeature([StockEffects]),
     ConnectionMonitorModule,
   ],
   exports: [
