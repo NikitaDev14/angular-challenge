@@ -6,6 +6,7 @@ import { AppComponent } from 'src/app/containers/app/app.component';
 import { ClockModule } from './modules/clock/clock.module';
 import { ConnectionMonitorModule } from './modules/connection-monitor/connection-monitor.module';
 import { StockModule } from './modules/stock/stock.module';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { StockModule } from './modules/stock/stock.module';
   imports: [
     BrowserModule,
     StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     ClockModule,
     ConnectionMonitorModule,
     StockModule,

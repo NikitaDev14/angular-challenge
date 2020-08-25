@@ -26,3 +26,5 @@ export interface Trade {
   date: Date;
   volume: number;
 }
+
+export type TradesMap = { [key: string]: Trade};

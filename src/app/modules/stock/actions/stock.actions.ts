@@ -1,17 +1,26 @@
 import { Action } from '@ngrx/store';
 import { Trade } from '../models/stock.models';
 
-export const LOAD_LAST_TRADE_ACTION = '[StockActions] LOAD_LAST_TRADE';
-export const LOADED_LAST_TRADE_ACTION = '[StockActions] LOADED_LAST_TRADE';
+export const SUBSCRIBE_ACTION = '[StockAction] SUBSCRIBE_ACTION';
+export const SET_LAST_TRADDE_ACTION = '[StockAction] SET_LAST_TRADE_ACTION';
+export const CONNECT_TO_MARKET_ACTION = '[StockAction] CONNECT_TO_MARKET';
 
-export class LoadLastTradeAction implements Action {
-  public readonly type = LOAD_LAST_TRADE_ACTION;
+export class SubscribeAction implements Action {
+  public readonly type = SUBSCRIBE_ACTION;
 
   constructor(public payload: string) { }
 }
 
-export class LoadedLastTradeAction implements Action {
-  public readonly type = LOADED_LAST_TRADE_ACTION;
+export class SetLastTradeAction implements Action {
+  public readonly type = SET_LAST_TRADDE_ACTION;
 
   constructor(public payload: Trade) { }
 }
+
+export class ConnectToMarketAction implements Action {
+  public readonly type = CONNECT_TO_MARKET_ACTION;
+}
+
+export type StockActions =
+  SubscribeAction |
+  SetLastTradeAction;

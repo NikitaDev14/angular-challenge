@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { merge, Observable } from 'rxjs';
-import { concatMap, mergeAll, shareReplay, startWith, withLatestFrom } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
 import { FinnhubService } from '../../services/finnhub.service';
-import { SymbolSubscription, Trade } from '../../models/stock.models';
+import { Trade, TradesMap } from '../../models/stock.models';
+import { StockState } from '../../states/stock.state';
+import { selectSubscriptions } from '../../selectors/stock.selectors';
+import { ConnectToMarketAction, SubscribeAction } from '../../actions/stock.actions';
 
 @Component({
   selector: 'app-watch-list',
@@ -11,32 +15,32 @@ import { SymbolSubscription, Trade } from '../../models/stock.models';
   styleUrls: ['./watch-list.component.scss']
 })
 export class WatchListComponent implements OnInit {
-  trade$: Observable<Trade>;
-  lastPrice$: Observable<any>;
-
-  subscriptions: string[];
+  subscriptions$: Observable<Trade[]>;
 
   constructor(
     private finnhubService: FinnhubService,
+    private store: Store<StockState>,
   ) { }
 
   ngOnInit(): void {
-    this.subscriptions = ['CLSN', 'SSL', 'STNG', 'NTAP', 'ZI', 'NVDA'];
+    this.store.dispatch(new ConnectToMarketAction());
 
-    this.trade$ = merge(
-      this.finnhubService.getSocket(),
-      ...this.subscriptions.map((subscription: string) => this.finnhubService.getLastTrade(subscription)),
-    ).pipe(
-      shareReplay(1),
+    this.subscriptions$ = this.store.select(selectSubscriptions).pipe(
+      map((subscriptions: TradesMap) => Object.values(subscriptions)),
     );
 
+    this.store.dispatch(new SubscribeAction('CLSN'));
+    this.store.dispatch(new SubscribeAction('SSL'));
+    this.store.dispatch(new SubscribeAction('STNG'));
+    this.store.dispatch(new SubscribeAction('NTAP'));
+    this.store.dispatch(new SubscribeAction('ZI'));
+    this.store.dispatch(new SubscribeAction('NVDA'));
+    this.store.dispatch(new SubscribeAction('AAPL'));
+    this.store.dispatch(new SubscribeAction('TSLA'));
+  }
 
-    this.finnhubService.send(new SymbolSubscription('CLSN'));
-    this.finnhubService.send(new SymbolSubscription('SSL'));
-    this.finnhubService.send(new SymbolSubscription('STNG'));
-    this.finnhubService.send(new SymbolSubscription('NTAP'));
-    this.finnhubService.send(new SymbolSubscription('ZI'));
-    this.finnhubService.send(new SymbolSubscription('NVDA'));
+  public trackFn(index: number, item: Trade): string {
+    return item.symbol;
   }
 
 }
