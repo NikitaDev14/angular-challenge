@@ -7,8 +7,6 @@ from './containers/market-data-connection-monitor/market-data-connection-monitor
 import { ConnectionMonitorModule } from '../connection-monitor/connection-monitor.module';
 import { WatchListComponent } from './containers/watch-list/watch-list.component';
 import { WatchListItemComponent } from './components/watch-list-item/watch-list-item.component';
-import { TradesOfPipe } from './pipes/trades-of.pipe';
-import { GetPipe } from './pipes/get.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { stockReducers } from './reducers';
@@ -21,8 +19,6 @@ import { StockEffects } from './effects/stock.effects';
     MarketDataConnectionMonitorContainer,
     WatchListComponent,
     WatchListItemComponent,
-    TradesOfPipe,
-    GetPipe,
   ],
   imports: [
     CommonModule,
