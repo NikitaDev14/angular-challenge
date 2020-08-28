@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { FinnhubService } from '../../services/finnhub.service';
 
 @Component({
   selector: 'app-market-data-connection-monitor',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MarketDataConnectionMonitorContainer implements OnInit {
 
-  constructor() { }
+  isConnected$: Observable<boolean>;
+
+  constructor(
+    private finnhubService: FinnhubService,
+  ) { }
 
   ngOnInit(): void {
+    this.isConnected$ = this.finnhubService.isConnected$();
   }
 
 }

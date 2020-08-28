@@ -7,7 +7,7 @@ import { FinnhubService } from '../../services/finnhub.service';
 import { Trade, TradesMap } from '../../models/stock.models';
 import { StockState } from '../../states/stock.state';
 import { selectSubscriptions } from '../../selectors/stock.selectors';
-import { ConnectToMarketAction, SubscribeAction } from '../../actions/stock.actions';
+import { SubscribeAction } from '../../actions/stock.actions';
 
 @Component({
   selector: 'app-watch-list',
@@ -23,8 +23,6 @@ export class WatchListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.store.dispatch(new ConnectToMarketAction());
-
     this.subscriptions$ = this.store.select(selectSubscriptions).pipe(
       map((subscriptions: TradesMap) => Object.values(subscriptions)),
     );
