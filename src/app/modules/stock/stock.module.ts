@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
 import { FinnhubService } from './services/finnhub.service';
 import { StockContainer } from './containers/stock/stock-container.component';
 import { MarketDataConnectionMonitorContainer }
@@ -7,10 +11,7 @@ from './containers/market-data-connection-monitor/market-data-connection-monitor
 import { ConnectionMonitorModule } from '../connection-monitor/connection-monitor.module';
 import { WatchListComponent } from './containers/watch-list/watch-list.component';
 import { WatchListItemComponent } from './components/watch-list-item/watch-list-item.component';
-import { HttpClientModule } from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
 import { stockReducers } from './reducers';
-import { EffectsModule } from '@ngrx/effects';
 import { StockEffects } from './effects/stock.effects';
 
 @NgModule({

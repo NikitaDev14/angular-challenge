@@ -4,7 +4,13 @@ import { map, mergeMap, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { FinnhubService } from '../services/finnhub.service';
-import { CONNECT_TO_MARKET_ACTION, SetLastTradeAction, SUBSCRIBE_ACTION, SubscribeAction } from '../actions/stock.actions';
+import {
+  CONNECT_TO_MARKET_ACTION,
+  SetLastTradeAction,
+  SUBSCRIBE_ACTION,
+  SubscribeAction,
+  SubscribedAction
+} from '../actions/stock.actions';
 import { SymbolSubscription, Trade } from '../models/stock.models';
 
 @Injectable()
@@ -20,7 +26,7 @@ export class StockEffects {
       );
 
       return this.finnhubService.getLastTrade(symbolToSubscribe).pipe(
-        mergeMap((lastTrade: Trade) => of(new SetLastTradeAction(lastTrade))),
+        mergeMap((lastTrade: Trade) => of(new SubscribedAction(lastTrade))),
       );
     }),
   );

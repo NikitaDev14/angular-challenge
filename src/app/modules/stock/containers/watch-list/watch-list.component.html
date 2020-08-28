@@ -5,6 +5,7 @@
       <tr>
         <th class="w-25">Symbol</th>
         <th class="w-25">Price</th>
+        <th class="w-25">Change, %</th>
         <th class="w-25">Date</th>
         <th class="w-25">Volume</th>
       </tr>
@@ -12,7 +13,9 @@
       <tbody>
       <tr *ngFor="let subscription of subscriptions$ | async; trackBy: trackFn">
         <td>{{subscription.symbol}}</td>
-        <td>{{subscription.price}}</td>
+        <td>{{subscription.currentPrice}}</td>
+        <td>{{(subscription.currentPrice - subscription.previousClosePrice) / subscription.previousClosePrice * 100 |
+          number: '0.1-2'}}</td>
         <td>{{subscription.date | date: 'H:mm:ss'}}</td>
         <td>{{subscription.volume}}</td>
       </tr>

@@ -22,7 +22,8 @@ export class SymbolSubscription implements Serializable {
 
 export interface Trade {
   symbol: string;
-  price: number;
+  currentPrice: number;
+  previousClosePrice?: number;
   date: Date;
   volume: number;
 }

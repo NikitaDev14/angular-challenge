@@ -51,7 +51,7 @@ export class FinnhubService {
       concatMap((message: MessageEvent) =>
         message.data.map((dataItem: any): Trade => ({
           symbol: dataItem.s,
-          price: dataItem.p,
+          currentPrice: dataItem.p,
           date: dataItem.t,
           volume: dataItem.v,
         })) as Trade[],
@@ -68,8 +68,9 @@ export class FinnhubService {
         },
       })},
     ).pipe(
-      map(({c, t}: {c: number, t: number}) => ({
-        price: c,
+      map(({c, pc, t}: {c: number, pc: number, t: number}) => ({
+        currentPrice: c,
+        previousClosePrice: pc,
         symbol,
         volume: 0,
         date: new Date(t * 1000),
