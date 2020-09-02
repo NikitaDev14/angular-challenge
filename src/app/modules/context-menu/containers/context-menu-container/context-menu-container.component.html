@@ -1,0 +1,10 @@
+<div
+  class="dropdown-menu"
+  *ngIf="isShownMenu$ | async"
+  [ngStyle]="{
+    'left.px': position$ | async | get: 'xCoordinate',
+    'top.px': position$ | async | get: 'yCoordinate'
+  }"
+>
+  <ng-container [ngTemplateOutlet]="menuTemplate$ | async"></ng-container>
+</div>

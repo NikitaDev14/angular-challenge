@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
+import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { FinnhubService } from '../services/finnhub.service';
@@ -9,9 +9,11 @@ import {
   SetLastTradeAction,
   SUBSCRIBE_ACTION,
   SubscribeAction,
-  SubscribedAction
+  SubscribedAction, UNSUBSCRIBE_ACTION, UnsubscribedAction
 } from '../actions/stock.actions';
-import { SymbolSubscription, Trade } from '../models/stock.models';
+import { SymbolSubscription, SymbolUnsubscription, Trade } from '../models/stock.models';
+import { Store } from '@ngrx/store';
+import { selectContextOfMenu } from '../../context-menu/selectors/context-menu.selectors';
 
 @Injectable()
 export class StockEffects {
@@ -41,8 +43,22 @@ export class StockEffects {
     ),
   );
 
+  @Effect()
+  unsubscribe$ = this.actions$.pipe(
+    ofType(UNSUBSCRIBE_ACTION),
+    withLatestFrom(this.store$.select(selectContextOfMenu)),
+    switchMap(([action, symbolToUnsubscribe]: [never, string]) => {
+      this.finnhubService.send(
+        new SymbolUnsubscription(symbolToUnsubscribe),
+      );
+
+      return of(new UnsubscribedAction(symbolToUnsubscribe));
+    }),
+  );
+
   constructor(
     private actions$: Actions,
+    private store$: Store<{}>,
     private finnhubService: FinnhubService,
   ) {
   }

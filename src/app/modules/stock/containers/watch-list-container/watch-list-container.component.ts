@@ -3,22 +3,20 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
-import { FinnhubService } from '../../services/finnhub.service';
 import { Trade, TradesMap } from '../../models/stock.models';
 import { StockState } from '../../states/stock.state';
 import { selectSubscriptions } from '../../selectors/stock.selectors';
-import { SubscribeAction } from '../../actions/stock.actions';
+import { SubscribeAction, UnsubscribeAction } from '../../actions/stock.actions';
 
 @Component({
   selector: 'app-watch-list',
-  templateUrl: './watch-list.component.html',
-  styleUrls: ['./watch-list.component.scss']
+  templateUrl: './watch-list-container.component.html',
+  styleUrls: ['./watch-list-container.component.scss']
 })
-export class WatchListComponent implements OnInit {
+export class WatchListContainer implements OnInit {
   subscriptions$: Observable<Trade[]>;
 
   constructor(
-    private finnhubService: FinnhubService,
     private store: Store<StockState>,
   ) { }
 
@@ -27,18 +25,16 @@ export class WatchListComponent implements OnInit {
       map((subscriptions: TradesMap) => Object.values(subscriptions)),
     );
 
-    this.store.dispatch(new SubscribeAction('CLSN'));
     this.store.dispatch(new SubscribeAction('SSL'));
-    this.store.dispatch(new SubscribeAction('STNG'));
     this.store.dispatch(new SubscribeAction('NTAP'));
     this.store.dispatch(new SubscribeAction('ZI'));
-    this.store.dispatch(new SubscribeAction('NVDA'));
-    this.store.dispatch(new SubscribeAction('AAPL'));
     this.store.dispatch(new SubscribeAction('TSLA'));
+    this.store.dispatch(new SubscribeAction('NVDA'));
+    this.store.dispatch(new SubscribeAction('WORK'));
+    this.store.dispatch(new SubscribeAction('RKT'));
   }
 
-  public trackFn(index: number, item: Trade): string {
-    return item.symbol;
+  unsubscribe() {
+    this.store.dispatch(new UnsubscribeAction());
   }
-
 }
