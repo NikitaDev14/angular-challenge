@@ -4,22 +4,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { FinnhubService } from './services/finnhub.service';
 import { StockContainer } from './containers/stock/stock-container.component';
 import { MarketDataConnectionMonitorContainer }
 from './containers/market-data-connection-monitor/market-data-connection-monitor-container.component';
 import { ConnectionMonitorModule } from '../connection-monitor/connection-monitor.module';
-import { WatchListComponent } from './containers/watch-list/watch-list.component';
-import { WatchListItemComponent } from './components/watch-list-item/watch-list-item.component';
+import { WatchListContainer } from './containers/watch-list-container/watch-list-container.component';
 import { stockReducers } from './reducers';
 import { StockEffects } from './effects/stock.effects';
+import { WatchListComponent } from './components/watch-list/watch-list.component';
+import { ContextMenuModule } from '../context-menu/context-menu.module';
 
 @NgModule({
   declarations: [
     StockContainer,
     MarketDataConnectionMonitorContainer,
+    WatchListContainer,
     WatchListComponent,
-    WatchListItemComponent,
   ],
   imports: [
     CommonModule,
@@ -27,12 +27,10 @@ import { StockEffects } from './effects/stock.effects';
     StoreModule.forFeature('stock', stockReducers),
     EffectsModule.forFeature([StockEffects]),
     ConnectionMonitorModule,
+    ContextMenuModule,
   ],
   exports: [
     StockContainer,
-  ],
-  providers: [
-    FinnhubService,
   ],
 })
 export class StockModule { }

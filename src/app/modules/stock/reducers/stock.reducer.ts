@@ -1,5 +1,5 @@
 import { initialStockState, StockState } from '../states/stock.state';
-import { SET_LAST_TRADDE_ACTION, StockActions, SUBSCRIBED_ACTION } from '../actions/stock.actions';
+import { SET_LAST_TRADDE_ACTION, StockActions, SUBSCRIBED_ACTION, UNSUBSCRIBED_ACTION } from '../actions/stock.actions';
 
 export const stockReducer = (
   state: StockState = initialStockState,
@@ -11,6 +11,18 @@ export const stockReducer = (
         trades: {
           ...state.trades,
           [action.payload.symbol]: action.payload,
+        }
+      };
+    }
+
+    case UNSUBSCRIBED_ACTION: {
+      const newTrades = { ...state.trades };
+
+      delete newTrades[action.payload];
+
+      return {
+        trades: {
+          ...newTrades,
         }
       };
     }
