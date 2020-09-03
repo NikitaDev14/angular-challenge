@@ -5,4 +5,8 @@
       (onUnsubscribe)="unsubscribe()">
     </app-watch-list-component>
   </div>
+
+  <div class="col-6">
+    <app-subscribe-form (onSubmit)="subscribe($event)"></app-subscribe-form>
+  </div>
 </div>

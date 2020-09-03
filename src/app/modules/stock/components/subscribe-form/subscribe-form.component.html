@@ -1,0 +1,7 @@
+<form class="form-inline" [formGroup]="subscribeForm" (ngSubmit)="submit()">
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="inputTicker" class="sr-only">Password</label>
+    <input type="text" class="form-control" id="inputTicker" placeholder="Ticker" formControlName="ticker">
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+</form>
