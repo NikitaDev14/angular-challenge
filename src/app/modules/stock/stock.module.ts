@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { StockContainer } from './containers/stock/stock-container.component';
 import { MarketDataConnectionMonitorContainer }
@@ -13,6 +14,7 @@ import { stockReducers } from './reducers';
 import { StockEffects } from './effects/stock.effects';
 import { WatchListComponent } from './components/watch-list/watch-list.component';
 import { ContextMenuModule } from '../context-menu/context-menu.module';
+import { SubscribeFormComponent } from './components/subscribe-form/subscribe-form.component';
 
 @NgModule({
   declarations: [
@@ -20,10 +22,12 @@ import { ContextMenuModule } from '../context-menu/context-menu.module';
     MarketDataConnectionMonitorContainer,
     WatchListContainer,
     WatchListComponent,
+    SubscribeFormComponent,
   ],
   imports: [
     CommonModule,
     HttpClientModule,
+    ReactiveFormsModule,
     StoreModule.forFeature('stock', stockReducers),
     EffectsModule.forFeature([StockEffects]),
     ConnectionMonitorModule,
