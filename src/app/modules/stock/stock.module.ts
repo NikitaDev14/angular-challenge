@@ -13,8 +13,8 @@ import { WatchListContainer } from './containers/watch-list-container/watch-list
 import { stockReducers } from './reducers';
 import { StockEffects } from './effects/stock.effects';
 import { WatchListComponent } from './components/watch-list/watch-list.component';
-import { ContextMenuModule } from '../context-menu/context-menu.module';
 import { SubscribeFormComponent } from './components/subscribe-form/subscribe-form.component';
+import { ContextMenuModule } from '../context-menu/context-menu.module';
 
 @NgModule({
   declarations: [

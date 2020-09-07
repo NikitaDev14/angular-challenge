@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { FinnhubService } from '../services/finnhub.service';
 import {
-  CONNECT_TO_MARKET_ACTION,
+  CONNECT_TO_MARKET_ACTION, HttpErrorAction,
   SetLastTradeAction,
   SUBSCRIBE_ACTION,
   SubscribeAction,
@@ -29,6 +30,7 @@ export class StockEffects {
 
       return this.finnhubService.getLastTrade(symbolToSubscribe).pipe(
         mergeMap((lastTrade: Trade) => of(new SubscribedAction(lastTrade))),
+        catchError((error: HttpErrorResponse) => of(new HttpErrorAction(error))),
       );
     }),
   );

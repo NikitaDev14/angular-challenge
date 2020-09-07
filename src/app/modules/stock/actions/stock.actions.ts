@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { Trade } from '../models/stock.models';
 
@@ -8,6 +9,7 @@ export const SET_LAST_TRADDE_ACTION = '[StockAction] SET_LAST_TRADE_ACTION';
 export const CONNECT_TO_MARKET_ACTION = '[StockAction] CONNECT_TO_MARKET';
 export const UNSUBSCRIBE_ACTION = '[StockAction] UNSUBSCRIBE';
 export const UNSUBSCRIBED_ACTION = '[StockAction] UNSUBSCRIBED';
+export const HTTP_ERROR_ACTION = '[StockAction] HTTP_ERROR';
 
 export class SubscribeAction implements Action {
   public readonly type = SUBSCRIBE_ACTION;
@@ -40,9 +42,15 @@ export class UnsubscribedAction implements Action {
   constructor(public payload: string) { }
 }
 
+export class HttpErrorAction implements Action {
+  public readonly type = HTTP_ERROR_ACTION;
+  constructor(public payload: HttpErrorResponse) { }
+}
+
 export type StockActions =
   SubscribeAction |
   SubscribedAction |
   SetLastTradeAction |
   UnsubscribeAction |
-  UnsubscribedAction;
+  UnsubscribedAction |
+  HttpErrorAction;
