@@ -6,6 +6,7 @@ export enum MessageTypes {
   SUBSCRIBE = 'subscribe',
   UNSUBSCRIBE = 'unsubscribe',
   TRADE = 'trade',
+  WRONG_TICKER = 'wrong ticker',
 }
 
 export class SymbolSubscription implements Serializable {

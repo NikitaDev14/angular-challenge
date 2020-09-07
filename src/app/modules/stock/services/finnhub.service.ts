@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { WebSocketSubject } from 'rxjs/internal-compatibility';
-import { Observable, Subject } from 'rxjs';
-import { concatMap, filter, map, retry } from 'rxjs/operators';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, Subject, throwError } from 'rxjs';
+import { concatMap, filter, map, retry, tap } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
-import { Serializable, Trade } from '../models/stock.models';
+import { MessageTypes, Serializable, Trade } from '../models/stock.models';
 import { Constants } from '../constants';
 
 @Injectable({
@@ -68,13 +68,22 @@ export class FinnhubService {
         },
       })},
     ).pipe(
-      map(({c, pc, t}: {c: number, pc: number, t: number}) => ({
-        currentPrice: c,
-        previousClosePrice: pc,
-        symbol,
-        volume: 0,
-        date: new Date(t * 1000),
-      })),
+      map(({c, pc, t}: {c: number, pc: number, t: number}) => {
+        if (!c) {
+          throwError(new HttpErrorResponse({
+            status: 400,
+            error: MessageTypes.WRONG_TICKER,
+          }));
+        }
+
+        return {
+          currentPrice: c,
+          previousClosePrice: pc,
+          symbol,
+          volume: 0,
+          date: new Date(t * 1000),
+        };
+      }),
     );
   }
 }

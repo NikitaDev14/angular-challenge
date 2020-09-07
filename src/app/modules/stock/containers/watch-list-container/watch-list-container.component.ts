@@ -27,7 +27,6 @@ export class WatchListContainer implements OnInit {
 
     this.store.dispatch(new SubscribeAction('SSL'));
     this.store.dispatch(new SubscribeAction('ZI'));
-    this.store.dispatch(new SubscribeAction('RRGB'));
     this.store.dispatch(new SubscribeAction('TSLA'));
     this.store.dispatch(new SubscribeAction('NVDA'));
     this.store.dispatch(new SubscribeAction('WORK'));

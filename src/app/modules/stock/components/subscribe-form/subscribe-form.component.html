@@ -3,5 +3,5 @@
     <label for="inputTicker" class="sr-only">Password</label>
     <input type="text" class="form-control" id="inputTicker" placeholder="Ticker" formControlName="ticker">
   </div>
-  <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+  <button type="submit" class="btn btn-primary mb-2" [disabled]="subscribeForm.invalid">Subscribe</button>
 </form>
