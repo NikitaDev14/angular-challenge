@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 
 import { FinnhubService } from '../services/finnhub.service';
@@ -13,8 +14,7 @@ import {
   SubscribedAction, UNSUBSCRIBE_ACTION, UnsubscribedAction
 } from '../actions/stock.actions';
 import { SymbolSubscription, SymbolUnsubscription, Trade } from '../models/stock.models';
-import { Store } from '@ngrx/store';
-import { selectContextOfMenu } from '../../context-menu/selectors/context-menu.selectors';
+import { selectContextOfMenu } from '../../shared/selectors/context-menu.selectors';
 
 @Injectable()
 export class StockEffects {

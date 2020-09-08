@@ -14,7 +14,7 @@ import { stockReducers } from './reducers';
 import { StockEffects } from './effects/stock.effects';
 import { WatchListComponent } from './components/watch-list/watch-list.component';
 import { SubscribeFormComponent } from './components/subscribe-form/subscribe-form.component';
-import { ContextMenuModule } from '../context-menu/context-menu.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { ContextMenuModule } from '../context-menu/context-menu.module';
     StoreModule.forFeature('stock', stockReducers),
     EffectsModule.forFeature([StockEffects]),
     ConnectionMonitorModule,
-    ContextMenuModule,
+    SharedModule,
   ],
   exports: [
     StockContainer,
