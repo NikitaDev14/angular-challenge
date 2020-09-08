@@ -1,5 +1,5 @@
 import { ContextMenuState } from './context-menu.state';
 
-export interface ContextMenuFeatureState {
+export interface SharedFeaturesState {
   contextMenu: ContextMenuState;
 }

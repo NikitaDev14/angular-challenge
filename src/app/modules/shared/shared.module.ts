@@ -4,7 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { GetPipe } from './pipes/get.pipe';
-import { contextMenuReducers } from './reducers';
+import { sharedReducers } from './reducers';
 import { ContextMenuEffects } from './effects/context-menu.effects';
 import { ContextMenuContainer } from './containers/context-menu-container/context-menu-container.component';
 import { ContextMenuInitializeDirective } from './directives/context-menu-initialize.directive';
@@ -17,7 +17,7 @@ import { ContextMenuInitializeDirective } from './directives/context-menu-initia
   ],
   imports: [
     CommonModule,
-    StoreModule.forFeature('contextMenu', contextMenuReducers),
+    StoreModule.forFeature('sharedFeatures', sharedReducers),
     EffectsModule.forFeature([ContextMenuEffects]),
   ],
   exports: [

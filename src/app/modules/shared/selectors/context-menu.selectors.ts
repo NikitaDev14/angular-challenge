@@ -1,15 +1,15 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { ContextMenuFeatureState } from '../states';
+import { SharedFeaturesState } from '../states';
 import { ContextMenuState } from '../states/context-menu.state';
 import { ContextMenuPosition } from '../models/context-menu.models';
 import { TemplateRef } from '@angular/core';
 
-const selectFeatureState = createFeatureSelector<ContextMenuFeatureState>('contextMenu');
+const selectFeatureState = createFeatureSelector<SharedFeaturesState>('contextMenu');
 
 const selectContextMenuState = createSelector(
   selectFeatureState,
-  (state: ContextMenuFeatureState): ContextMenuState => state.contextMenu,
+  (state: SharedFeaturesState): ContextMenuState => state.contextMenu,
 );
 
 export const selectIsContextMenuOpened = createSelector(
