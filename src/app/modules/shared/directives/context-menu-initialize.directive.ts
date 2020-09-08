@@ -1,7 +1,7 @@
 import { Directive, HostListener, Input, TemplateRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { ContextMenuFeatureState } from '../states';
+import { SharedFeaturesState } from '../states';
 import { OpenAction } from '../actions/context-menu.actions';
 
 @Directive({
@@ -12,7 +12,7 @@ export class ContextMenuInitializeDirective {
   @Input() menuTemplate: TemplateRef<any>;
 
   constructor(
-    private store: Store<ContextMenuFeatureState>,
+    private store: Store<SharedFeaturesState>,
   ) { }
 
   @HostListener('contextmenu', ['$event'])

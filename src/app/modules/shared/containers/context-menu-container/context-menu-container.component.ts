@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
-import { ContextMenuFeatureState } from '../../states';
+import { SharedFeaturesState } from '../../states';
 import { ContextMenuPosition } from '../../models/context-menu.models';
 import { selectContextMenuPosition, selectContextMenuTemplate, selectIsContextMenuOpened } from '../../selectors/context-menu.selectors';
 import { SubscribeToGlobalClickAction } from '../../actions/context-menu.actions';
@@ -19,7 +19,7 @@ export class ContextMenuContainer implements OnInit {
   menuTemplate$: Observable<TemplateRef<any>>;
 
   constructor(
-    private store: Store<ContextMenuFeatureState>,
+    private store: Store<SharedFeaturesState>,
   ) { }
 
   ngOnInit(): void {
