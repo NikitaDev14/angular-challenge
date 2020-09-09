@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ConnectToMarketAction } from '../../actions/stock.actions';
+import { ConnectToMarketAction } from '../../actions/trade.actions';
 import { Store } from '@ngrx/store';
-import { StockState } from '../../states/stock.state';
+import { TradeState } from '../../states/trade.state';
 
 @Component({
   selector: 'app-stock',
@@ -11,7 +11,7 @@ import { StockState } from '../../states/stock.state';
 })
 export class StockContainer implements OnInit {
   constructor(
-    private store: Store<StockState>,
+    private store: Store<TradeState>,
   ) { }
 
   ngOnInit(): void {

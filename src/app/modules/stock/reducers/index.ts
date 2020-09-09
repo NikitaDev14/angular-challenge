@@ -1,9 +1,11 @@
 import { ActionReducerMap } from '@ngrx/store';
 
 import { StockFeatureState } from '../states';
-import { StockActions } from '../actions/stock.actions';
-import { stockReducer } from './stock.reducer';
+import { tradeReducer } from './trade.reducer';
+import { StockActions } from '../actions';
+import { symbolReducer } from './symbol.reducer';
 
 export const stockReducers: ActionReducerMap<StockFeatureState, StockActions> = {
-  stock: stockReducer,
+  trade: tradeReducer,
+  symbol: symbolReducer,
 };

@@ -11,10 +11,11 @@ from './containers/market-data-connection-monitor/market-data-connection-monitor
 import { ConnectionMonitorModule } from '../connection-monitor/connection-monitor.module';
 import { WatchListContainer } from './containers/watch-list-container/watch-list-container.component';
 import { stockReducers } from './reducers';
-import { StockEffects } from './effects/stock.effects';
+import { TradeEffects } from './effects/trade.effects';
 import { WatchListComponent } from './components/watch-list/watch-list.component';
 import { SubscribeFormComponent } from './components/subscribe-form/subscribe-form.component';
 import { SharedModule } from '../shared/shared.module';
+import { SymbolEffects } from './effects/symbol.effects';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { SharedModule } from '../shared/shared.module';
     HttpClientModule,
     ReactiveFormsModule,
     StoreModule.forFeature('stock', stockReducers),
-    EffectsModule.forFeature([StockEffects]),
+    EffectsModule.forFeature([TradeEffects, SymbolEffects]),
     ConnectionMonitorModule,
     SharedModule,
   ],
