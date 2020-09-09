@@ -7,6 +7,9 @@
   </div>
 
   <div class="col-6">
-    <app-subscribe-form (onSubmit)="subscribe($event)"></app-subscribe-form>
+    <app-subscribe-form
+      [availableSymbols]="symbols$ | async"
+      (onSubmit)="subscribe($event)">
+    </app-subscribe-form>
   </div>
 </div>

@@ -5,8 +5,11 @@ import { Store } from '@ngrx/store';
 
 import { Trade, TradesMap } from '../../models/trade.models';
 import { TradeState } from '../../states/trade.state';
-import { selectSubscriptions } from '../../selectors/stock.selectors';
+import { selectSubscriptions } from '../../selectors/trade.selectors';
 import { SubscribeAction, UnsubscribeAction } from '../../actions/trade.actions';
+import { LoadAction } from '../../actions/symbol.actions';
+import { StockSymbol } from '../../models/symbol.models';
+import { selectSymbols } from '../../selectors/symbol.selectors';
 
 @Component({
   selector: 'app-watch-list',
@@ -15,6 +18,7 @@ import { SubscribeAction, UnsubscribeAction } from '../../actions/trade.actions'
 })
 export class WatchListContainer implements OnInit {
   subscriptions$: Observable<Trade[]>;
+  symbols$: Observable<StockSymbol[]>;
 
   constructor(
     private store: Store<TradeState>,
@@ -24,6 +28,10 @@ export class WatchListContainer implements OnInit {
     this.subscriptions$ = this.store.select(selectSubscriptions).pipe(
       map((subscriptions: TradesMap) => Object.values(subscriptions)),
     );
+
+    this.store.dispatch(new LoadAction());
+
+    this.symbols$ = this.store.select(selectSymbols);
 
     this.store.dispatch(new SubscribeAction('SSL'));
     this.store.dispatch(new SubscribeAction('ETSY'));
