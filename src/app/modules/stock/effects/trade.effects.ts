@@ -12,12 +12,12 @@ import {
   SUBSCRIBE_ACTION,
   SubscribeAction,
   SubscribedAction, UNSUBSCRIBE_ACTION, UnsubscribedAction
-} from '../actions/stock.actions';
-import { SymbolSubscription, SymbolUnsubscription, Trade } from '../models/stock.models';
+} from '../actions/trade.actions';
+import { SymbolSubscription, SymbolUnsubscription, Trade } from '../models/trade.models';
 import { selectContextOfMenu } from '../../shared/selectors/context-menu.selectors';
 
 @Injectable()
-export class StockEffects {
+export class TradeEffects {
 
   @Effect()
   subscribe$ = this.actions$.pipe(

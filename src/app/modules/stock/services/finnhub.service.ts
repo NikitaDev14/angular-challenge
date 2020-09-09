@@ -4,8 +4,9 @@ import { Observable, Subject, throwError } from 'rxjs';
 import { concatMap, filter, map, retry, tap } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
-import { MessageTypes, Serializable, Trade } from '../models/stock.models';
+import { MessageTypes, Serializable, Trade } from '../models/trade.models';
 import { Constants } from '../constants';
+import { StockSymbol } from '../models/symbol.models';
 
 @Injectable({
   providedIn: 'root'
@@ -84,6 +85,28 @@ export class FinnhubService {
           date: new Date(t * 1000),
         };
       }),
+    );
+  }
+
+  public getSymbols(): Observable<StockSymbol[]> {
+    return this.http$.get(
+      `${Constants.finnhubHttpsURL}/stock/symbol`,
+      {
+        params: new HttpParams({
+          fromObject: {
+            exchange: 'US',
+            token: Constants.finnhubToken as string,
+          },
+        }),
+      },
+    ).pipe(
+      map((response: any[]) =>
+        response.map((responseItem: any) => ({
+          description: responseItem.description,
+          displaySymbol: responseItem.displaySymbol,
+          type: responseItem.type,
+        })),
+      ),
     );
   }
 }

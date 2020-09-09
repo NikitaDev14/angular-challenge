@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Trade } from '../../models/stock.models';
+import { Trade } from '../../models/trade.models';
 
 @Component({
   selector: 'app-watch-list-component',

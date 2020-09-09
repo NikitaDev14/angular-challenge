@@ -3,10 +3,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
-import { Trade, TradesMap } from '../../models/stock.models';
-import { StockState } from '../../states/stock.state';
+import { Trade, TradesMap } from '../../models/trade.models';
+import { TradeState } from '../../states/trade.state';
 import { selectSubscriptions } from '../../selectors/stock.selectors';
-import { SubscribeAction, UnsubscribeAction } from '../../actions/stock.actions';
+import { SubscribeAction, UnsubscribeAction } from '../../actions/trade.actions';
 
 @Component({
   selector: 'app-watch-list',
@@ -17,7 +17,7 @@ export class WatchListContainer implements OnInit {
   subscriptions$: Observable<Trade[]>;
 
   constructor(
-    private store: Store<StockState>,
+    private store: Store<TradeState>,
   ) { }
 
   ngOnInit(): void {
