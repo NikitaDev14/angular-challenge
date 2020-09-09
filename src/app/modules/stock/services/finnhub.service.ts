@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { WebSocketSubject } from 'rxjs/internal-compatibility';
-import { Observable, Subject, throwError } from 'rxjs';
-import { concatMap, filter, map, retry, tap } from 'rxjs/operators';
+import { Observable, of, Subject, throwError } from 'rxjs';
+import { concatMap, filter, map, mergeMap, retry, toArray } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
 import { MessageTypes, Serializable, Trade } from '../models/trade.models';
@@ -49,13 +49,14 @@ export class FinnhubService {
     return this.webSocket$.pipe(
       retry(Constants.finnhubReconectionAttempts),
       filter((message: MessageEvent) => message.data),
-      concatMap((message: MessageEvent) =>
-        message.data.map((dataItem: any): Trade => ({
-          symbol: dataItem.s,
-          currentPrice: dataItem.p,
-          date: dataItem.t,
-          volume: dataItem.v,
-        })) as Trade[],
+      mergeMap((message: MessageEvent) => message.data),
+      concatMap(({p, s, t, v}: {p: number, s: string, t: number, v: number}) =>
+        of({
+          symbol: s,
+          currentPrice: p,
+          date: new Date(t),
+          volume: v,
+        }),
       ),
     );
   }
@@ -100,13 +101,15 @@ export class FinnhubService {
         }),
       },
     ).pipe(
-      map((response: any[]) =>
-        response.map((responseItem: any) => ({
-          description: responseItem.description,
-          displaySymbol: responseItem.displaySymbol,
-          type: responseItem.type,
-        })),
+      mergeMap((response: any[]) => response),
+      concatMap(({description, displaySymbol, type}: {description: string, displaySymbol: string, type: string}) =>
+        of ({
+          description,
+          displaySymbol,
+          type,
+        }),
       ),
+      toArray(),
     );
   }
 }

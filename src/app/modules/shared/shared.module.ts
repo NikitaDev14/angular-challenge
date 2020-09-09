@@ -8,12 +8,14 @@ import { sharedReducers } from './reducers';
 import { ContextMenuEffects } from './effects/context-menu.effects';
 import { ContextMenuContainer } from './containers/context-menu-container/context-menu-container.component';
 import { ContextMenuInitializeDirective } from './directives/context-menu-initialize.directive';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
     GetPipe,
     ContextMenuContainer,
     ContextMenuInitializeDirective,
+    FilterPipe,
   ],
   imports: [
     CommonModule,
@@ -22,6 +24,7 @@ import { ContextMenuInitializeDirective } from './directives/context-menu-initia
   ],
   exports: [
     GetPipe,
+    FilterPipe,
     ContextMenuContainer,
     ContextMenuInitializeDirective,
   ]

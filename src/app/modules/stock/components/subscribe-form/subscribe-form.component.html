@@ -1,7 +1,16 @@
-<form class="form-inline" [formGroup]="subscribeForm" (ngSubmit)="submit()">
-  <div class="form-group mx-sm-3 mb-2">
-    <label for="inputTicker" class="sr-only">Password</label>
-    <input type="text" class="form-control" id="inputTicker" placeholder="Ticker" formControlName="ticker">
+<form class="form-inline" autocomplete="off" [formGroup]="subscribeForm" (ngSubmit)="submit()">
+  <div class="input-group">
+    <input type="text" class="form-control" id="inputTicker" placeholder="Ticker" aria-label="Ticker"
+           formControlName="ticker" [(ngModel)]="search">
+
+    <div class="dropdown-menu">
+      <button class="dropdown-item" *ngFor="let symbol of availableSymbols | filter : 'displaySymbol' : search |
+      slice : 0 : 20"
+              type="button">{{symbol.displaySymbol}}</button>
+    </div>
+
+    <div class="input-group-append">
+      <button type="submit" class="btn btn-outline-primary" [disabled]="subscribeForm.invalid">Subscribe</button>
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary mb-2" [disabled]="subscribeForm.invalid">Subscribe</button>
 </form>
