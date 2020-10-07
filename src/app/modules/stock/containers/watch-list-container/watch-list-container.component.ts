@@ -33,13 +33,7 @@ export class WatchListContainer implements OnInit {
 
     this.symbols$ = this.store.select(selectSymbols);
 
-    this.store.dispatch(new SubscribeAction('SSL'));
-    this.store.dispatch(new SubscribeAction('ETSY'));
-    this.store.dispatch(new SubscribeAction('ZI'));
-    this.store.dispatch(new SubscribeAction('TSLA'));
-    this.store.dispatch(new SubscribeAction('NVDA'));
-    this.store.dispatch(new SubscribeAction('WORK'));
-    this.store.dispatch(new SubscribeAction('RKT'));
+    this.store.dispatch(new SubscribeAction('AAPL'));
   }
 
   subscribe(ticker: string) {
