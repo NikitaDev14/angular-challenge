@@ -6,10 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FilterPipe implements PipeTransform {
 
   transform<T>(value: T[], filterByProperty: keyof T, filterValue: string): T[] {
-    return value && filterByProperty && filterValue ? value.filter((item: T) => {
-      const symbol = String(item[filterByProperty]);
-
-      return RegExp(filterValue, 'i').test(symbol);
-    }) : value;
+    return value && filterByProperty && filterValue ? value.filter((item: T) =>
+      RegExp(filterValue, 'i').test(String(item[filterByProperty])),
+    ) : value;
   }
 }

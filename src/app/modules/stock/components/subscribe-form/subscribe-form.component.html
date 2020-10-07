@@ -1,12 +1,19 @@
 <form class="form-inline" autocomplete="off" [formGroup]="subscribeForm" (ngSubmit)="submit()">
   <div class="input-group">
-    <input type="text" class="form-control" id="inputTicker" placeholder="Ticker" aria-label="Ticker"
-           formControlName="ticker" [(ngModel)]="search">
+    <input type="text" class="form-control" id="inputTicker" autocapitalize="characters" style="text-transform: uppercase"
+           placeholder="Ticker"
+           aria-label="Ticker"
+           formControlName="ticker" (focus)="onFocus$.next($event.type ===
+           'focus')"
+           (blur)="onFocus$.next($event.type ===
+           'focus')">
 
-    <div class="dropdown-menu">
-      <button class="dropdown-item" *ngFor="let symbol of availableSymbols | filter : 'displaySymbol' : search |
-      slice : 0 : 20"
-              type="button">{{symbol.displaySymbol}}</button>
+    <div class="dropdown-menu" [hidden]="!(showAutocomplete$ | async)">
+      <button class="dropdown-item" *ngFor="let symbol of availableSymbols | filter : 'displaySymbol' : (onInput$ |
+      async) | slice : 0 : 20"
+              type="button" (click)="onSelectTicker(symbol)">
+        {{symbol.displaySymbol}} | {{symbol.description}} | {{symbol.type}}
+      </button>
     </div>
 
     <div class="input-group-append">
