@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { combineLatest, Observable, of, Subject } from 'rxjs';
-import { debounceTime, first, map, shareReplay } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 
 import { StockSymbol } from '../../models/symbol.models';
 import { TradeState } from '../../states/trade.state';
@@ -13,15 +13,10 @@ import { selectSymbols } from '../../selectors/symbol.selectors';
   templateUrl: './subscribe-form.component.html',
   styleUrls: ['./subscribe-form.component.scss'],
 })
-export class SubscribeFormComponent implements OnInit {
+export class SubscribeFormComponent {
   @Input() availableSymbols: StockSymbol[];
 
   @Output() onSubmit = new EventEmitter<StockSymbol>();
-
-  onFocus$ = new Subject<boolean>();
-  onInput$: Observable<string>;
-
-  showAutocomplete$: Observable<boolean>;
 
   subscribeForm = new FormGroup({
     ticker: new FormControl(
@@ -34,23 +29,6 @@ export class SubscribeFormComponent implements OnInit {
   constructor(
     private store: Store<TradeState>,
   ) { }
-
-  ngOnInit() {
-    this.onInput$ = this.subscribeForm.get('ticker').valueChanges.pipe(
-      shareReplay(1),
-    );
-
-    this.showAutocomplete$ = combineLatest([
-      this.onFocus$.pipe(
-        debounceTime(200),
-      ),
-      this.onInput$,
-    ]).pipe(
-      map(([isFocus, inputValue]: [boolean, string]) =>
-        isFocus && inputValue.length > 0,
-      ),
-    );
-  }
 
   private tickerValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
@@ -73,18 +51,11 @@ export class SubscribeFormComponent implements OnInit {
     };
   }
 
-  public onSelectTicker(stockSymbol: StockSymbol) {
-    if (!stockSymbol) {
-      return;
-    }
-
-    this.subscribeForm.get('ticker').setValue(stockSymbol.displaySymbol);
-    this.onFocus$.next(false);
-  }
-
   public submit() {
     this.onSubmit.emit(
       this.subscribeForm.value.ticker,
     );
+
+    this.subscribeForm.get('ticker').reset('');
   }
 }

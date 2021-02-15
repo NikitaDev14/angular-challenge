@@ -15,7 +15,13 @@ import { SharedModule } from './modules/shared/shared.module';
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({}, {
+      // disabled until https://github.com/ngrx/platform/issues/2109 is resolved
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false,
+      },
+    }),
     EffectsModule.forRoot([]),
     ClockModule,
     ConnectionMonitorModule,

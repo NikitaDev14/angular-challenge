@@ -1,0 +1,26 @@
+<div
+  class="btn-group"
+  (focusin)="focusSubject$.next(true)"
+  (focusout)="onFocusOut($event)"
+>
+  <input
+    type="text"
+    class="form-control"
+    id="inputTicker"
+    autocapitalize="characters"
+    style="text-transform: uppercase"
+    placeholder="Ticker"
+    aria-label="Ticker"
+    [(ngModel)]="inputValue"
+    (ngModelChange)="inputSubject$.next($event)">
+
+  <div class="dropdown-menu" [hidden]="!(showAutocomplete$ | async)">
+    <button
+      class="dropdown-item" type="button"
+      *ngFor="let symbol of symbols | filter : 'displaySymbol' : (input$ |
+      async) | slice : 0 : 20"
+      (click)="onSelectTicker(symbol)">
+      {{symbol.displaySymbol}} | {{symbol.description}} | {{symbol.type}}
+    </button>
+  </div>
+</div>

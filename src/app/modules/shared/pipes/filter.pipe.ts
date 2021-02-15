@@ -7,7 +7,7 @@ export class FilterPipe implements PipeTransform {
 
   transform<T>(value: T[], filterByProperty: keyof T, filterValue: string): T[] {
     return value && filterByProperty && filterValue ? value.filter((item: T) =>
-      RegExp(filterValue, 'i').test(String(item[filterByProperty])),
+      String(item[filterByProperty]).includes(filterValue.toUpperCase()),
     ) : value;
   }
 }

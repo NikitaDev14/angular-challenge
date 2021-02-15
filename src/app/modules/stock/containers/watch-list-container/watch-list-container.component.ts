@@ -7,9 +7,9 @@ import { Trade, TradesMap } from '../../models/trade.models';
 import { TradeState } from '../../states/trade.state';
 import { selectSubscriptions } from '../../selectors/trade.selectors';
 import { SubscribeAction, UnsubscribeAction } from '../../actions/trade.actions';
-import { LoadAction } from '../../actions/symbol.actions';
 import { StockSymbol } from '../../models/symbol.models';
 import { selectSymbols } from '../../selectors/symbol.selectors';
+import { LoadAction } from '../../actions/symbol.actions';
 
 @Component({
   selector: 'app-watch-list',
@@ -32,8 +32,6 @@ export class WatchListContainer implements OnInit {
     this.store.dispatch(new LoadAction());
 
     this.symbols$ = this.store.select(selectSymbols);
-
-    this.store.dispatch(new SubscribeAction('AAPL'));
   }
 
   subscribe(ticker: string) {

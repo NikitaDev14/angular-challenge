@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { StockContainer } from './containers/stock/stock-container.component';
 import { MarketDataConnectionMonitorContainer }
@@ -16,6 +16,7 @@ import { WatchListComponent } from './components/watch-list/watch-list.component
 import { SubscribeFormComponent } from './components/subscribe-form/subscribe-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { SymbolEffects } from './effects/symbol.effects';
+import { TickerInputComponent } from './components/ticker-input/ticker-input.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SymbolEffects } from './effects/symbol.effects';
     WatchListContainer,
     WatchListComponent,
     SubscribeFormComponent,
+    TickerInputComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { SymbolEffects } from './effects/symbol.effects';
     EffectsModule.forFeature([TradeEffects, SymbolEffects]),
     ConnectionMonitorModule,
     SharedModule,
+    FormsModule,
   ],
   exports: [
     StockContainer,
