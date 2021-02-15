@@ -67,6 +67,7 @@
       "timeEnd",
       "trace"
     ],
+    "no-unused-expression": false,
     "no-empty": false,
     "no-inferrable-types": [
       true,
