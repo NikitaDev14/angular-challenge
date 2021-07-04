@@ -22,5 +22,9 @@
       (click)="onSelectTicker(symbol)">
       {{symbol.displaySymbol}} | {{symbol.description}} | {{symbol.type}}
     </button>
+
+    <p class="text-muted p-4" *ngIf="symbols.length === 0">
+      No tickers found.
+    </p>
   </div>
 </div>
