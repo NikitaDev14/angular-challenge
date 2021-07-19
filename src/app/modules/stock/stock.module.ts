@@ -17,6 +17,7 @@ import { SubscribeFormComponent } from './components/subscribe-form/subscribe-fo
 import { SharedModule } from '../shared/shared.module';
 import { SymbolEffects } from './effects/symbol.effects';
 import { TickerInputComponent } from './components/ticker-input/ticker-input.component';
+import { stockFeatureKey } from './states';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { TickerInputComponent } from './components/ticker-input/ticker-input.com
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('stock', stockReducers),
+    StoreModule.forFeature(stockFeatureKey, stockReducers),
     EffectsModule.forFeature([TradeEffects, SymbolEffects]),
     ConnectionMonitorModule,
     SharedModule,

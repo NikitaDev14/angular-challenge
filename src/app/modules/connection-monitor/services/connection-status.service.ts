@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   Observable,
   fromEvent as observableFromEvent,
-  merge as observableMerge,
+  concat as observableConcat,
 } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class ConnectionStatusService {
   onConnectionStatusChanged(): Observable<boolean> {
-    return observableMerge(
+    return observableConcat(
       observableFromEvent(window, 'online'),
       observableFromEvent(window, 'offline'),
     ).pipe(

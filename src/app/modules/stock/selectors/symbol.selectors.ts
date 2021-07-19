@@ -1,10 +1,10 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { StockFeatureState } from '../states';
+import { stockFeatureKey, StockFeatureState } from '../states';
 import { SymbolState } from '../states/symbol.state';
 import { StockSymbol } from '../models/symbol.models';
 
-const selectFeatureState = createFeatureSelector<StockFeatureState>('stock');
+const selectFeatureState = createFeatureSelector<StockFeatureState>(stockFeatureKey);
 
 const selectStockState = createSelector(
   selectFeatureState,
