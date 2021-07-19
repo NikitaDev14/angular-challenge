@@ -5,6 +5,7 @@ import { ClockComponent } from './components/clock/clock.component';
 import { ClockContainer } from './containers/clock-container/clock-container.component';
 import { StoreModule } from '@ngrx/store';
 import { clockReducers } from './reducers';
+import { clockFeatureKey } from './states';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { clockReducers } from './reducers';
   ],
   imports: [
     CommonModule,
-    StoreModule.forFeature('clock', clockReducers),
+    StoreModule.forFeature(clockFeatureKey, clockReducers),
   ]
 })
 export class ClockModule { }

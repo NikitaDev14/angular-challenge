@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ClockState } from '../states/clock.state';
-import { ClockFeatureState } from '../states';
+import { clockFeatureKey, ClockFeatureState } from '../states';
 
-const selectFeatureState = createFeatureSelector<ClockFeatureState>('clock');
+const selectFeatureState = createFeatureSelector<ClockFeatureState>(clockFeatureKey);
 
 const selectClockState = createSelector(
   selectFeatureState,
