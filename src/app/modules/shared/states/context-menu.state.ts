@@ -4,9 +4,9 @@ import { ContextMenuPosition } from '../models/context-menu.models';
 
 export interface ContextMenuState {
   isOpened: boolean;
-  position: ContextMenuPosition;
+  position: Readonly<ContextMenuPosition>;
   context: any;
-  menuTemplate: TemplateRef<any>;
+  menuTemplate: Readonly<TemplateRef<any>>;
 }
 
 export const initialContextMenuState: ContextMenuState = {

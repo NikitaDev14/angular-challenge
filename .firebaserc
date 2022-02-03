@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "finnhub-a38ca": {
+      "hosting": {
+        "angular-challenge": [
+          "finnhub-a38ca"
+        ]
+      }
+    }
+  }
+}
