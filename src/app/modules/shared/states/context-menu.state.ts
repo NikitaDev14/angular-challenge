@@ -4,7 +4,7 @@ import { ContextMenuPosition } from '../models/context-menu.models';
 
 export interface ContextMenuState {
   isOpened: boolean;
-  position: ContextMenuPosition;
+  position: Readonly<ContextMenuPosition>;
   context: any;
   menuTemplate: TemplateRef<any>;
 }

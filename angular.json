@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/angular-challenge",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -71,7 +72,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-challenge:build"
+            "browserTarget": "angular-challenge:build",
           },
           "configurations": {
             "production": {
