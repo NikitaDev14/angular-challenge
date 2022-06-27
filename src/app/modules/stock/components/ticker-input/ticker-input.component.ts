@@ -16,7 +16,7 @@ import { StockSymbol } from '../../models/symbol.models';
   }],
 })
 export class TickerInputComponent implements OnInit, ControlValueAccessor {
-  @Input() symbols: StockSymbol[];
+  @Input() symbols: ReadonlyArray<StockSymbol>;
 
   focusSubject$ = new Subject<boolean>();
   inputSubject$ = new Subject<string>();

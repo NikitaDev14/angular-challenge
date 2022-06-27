@@ -14,9 +14,9 @@ import { selectSymbols } from '../../selectors/symbol.selectors';
   styleUrls: ['./subscribe-form.component.scss'],
 })
 export class SubscribeFormComponent {
-  @Input() availableSymbols: StockSymbol[];
+  @Input() availableSymbols: ReadonlyArray<StockSymbol>;
 
-  @Output() onSubmit = new EventEmitter<StockSymbol>();
+  @Output() onSubmit = new EventEmitter<string>();
 
   subscribeForm = new FormGroup({
     ticker: new FormControl(
@@ -39,7 +39,7 @@ export class SubscribeFormComponent {
       }
 
       return this.store.select(selectSymbols).pipe(
-        map((symbols: StockSymbol[]) =>
+        map((symbols: ReadonlyArray<StockSymbol>) =>
           symbols.some((symbol: StockSymbol) => symbol.displaySymbol === control.value.toUpperCase()) ?
             null :
             {

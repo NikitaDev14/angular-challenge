@@ -2,7 +2,7 @@ import { CommonState, initialCommonState } from '../../shared/states/common.stat
 import { StockSymbol } from '../models/symbol.models';
 
 export interface SymbolState extends CommonState {
-  stockSymbols: StockSymbol[];
+  stockSymbols: ReadonlyArray<StockSymbol>;
 }
 
 export const initialSymbolState: SymbolState = {

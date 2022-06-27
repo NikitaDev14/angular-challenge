@@ -13,5 +13,5 @@ const selectStockState = createSelector(
 
 export const selectSymbols = createSelector(
   selectStockState,
-  (state: SymbolState): StockSymbol[] => state.stockSymbols,
+  (state: SymbolState): ReadonlyArray<StockSymbol> => state.stockSymbols,
 );

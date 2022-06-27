@@ -18,7 +18,7 @@ import { LoadAction } from '../../actions/symbol.actions';
 })
 export class WatchListContainer implements OnInit {
   subscriptions$: Observable<Trade[]>;
-  symbols$: Observable<StockSymbol[]>;
+  symbols$: Observable<ReadonlyArray<StockSymbol>>;
 
   constructor(
     private store: Store<TradeState>,
