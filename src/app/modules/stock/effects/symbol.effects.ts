@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mergeMap, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
@@ -9,22 +9,21 @@ import { StockSymbol } from '../models/symbol.models';
 
 @Injectable()
 export class SymbolEffects {
+  constructor(
+    private actions$: Actions,
+    private finnhubService: FinnhubService,
+  ) { }
 
-  @Effect()
-  load$ = this.actions$.pipe(
-    ofType(LOAD_ACTION),
-    switchMap(() =>
-      this.finnhubService.getSymbols().pipe(
-        mergeMap((symbols: StockSymbol[]) =>
-          of(new LoadedAction(symbols)),
+  load$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(LOAD_ACTION),
+      switchMap(() =>
+        this.finnhubService.getSymbols().pipe(
+          mergeMap((symbols: StockSymbol[]) =>
+            of(new LoadedAction(symbols)),
+          ),
         ),
       ),
     ),
   );
-
-  constructor(
-    private actions$: Actions,
-    private finnhubService: FinnhubService,
-  ) {
-  }
 }

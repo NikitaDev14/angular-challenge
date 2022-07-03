@@ -6,6 +6,6 @@
 </app-clock-settings>
 
 <app-clock-component
-  [showSeconds$]="showSeconds$"
-  [enableAnimation$]="dividersAnimationEnabled$">
+  [showSeconds]="showSeconds$ | async"
+  [enableAnimation]="dividersAnimationEnabled$ | async">
 </app-clock-component>

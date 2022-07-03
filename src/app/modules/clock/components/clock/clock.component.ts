@@ -1,24 +1,33 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { combineLatest, from, Observable, of, timer } from 'rxjs';
-import { concatMap, delay, map, shareReplay, switchMap } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Observable, combineLatest, concat, timer, of, ReplaySubject } from 'rxjs';
+import { first, map, shareReplay, switchMap, skip } from 'rxjs/operators';
 
 @Component({
   selector: 'app-clock-component',
   templateUrl: './clock.component.html',
   styleUrls: ['./clock.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClockComponent implements OnInit {
-  @Input() showSeconds$: Observable<boolean>;
-  @Input() enableAnimation$: Observable<boolean>;
+  @Input() set showSeconds(showSeconds: boolean) {
+    this.showSecondsSubject$.next(showSeconds);
+  }
 
-  animateDivider$: Observable<boolean>;
-  currentDate$: Observable<Date>;
+  @Input() set enableAnimation(enableAnimation: boolean) {
+    this.enableAnimationSubject$.next(enableAnimation);
+  }
+
+  private showSecondsSubject$: ReplaySubject<boolean> = new ReplaySubject(1);
+  private enableAnimationSubject$: ReplaySubject<boolean> = new ReplaySubject(1);
+
+  public animateDivider$: Observable<boolean>;
+  public currentDate$: Observable<Date>;
+  public showSeconds$: Observable<boolean> = this.showSecondsSubject$.asObservable();
+  public enableAnimation$: Observable<boolean> = this.enableAnimationSubject$.asObservable();
 
   ngOnInit(): void {
     this.currentDate$ = timer(0, 1000).pipe(
-      map(() =>
-        new Date(),
-      ),
+      map(() => new Date()),
       shareReplay(1),
     );
 
@@ -32,9 +41,12 @@ export class ClockComponent implements OnInit {
         }
 
         if (showSeconds && enableAnimation) {
-          return from([false, true]).pipe(
-            concatMap((value: boolean) =>
-              of(value).pipe(delay(100)),
+          return concat(
+            of(false),
+            this.currentDate$.pipe(
+              map(() => true),
+              skip(1),
+              first(),
             ),
           );
         }

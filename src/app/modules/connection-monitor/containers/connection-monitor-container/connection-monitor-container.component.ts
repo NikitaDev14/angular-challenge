@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConnectionStatusService } from '../../services/connection-status.service';
 
 @Component({
   selector: 'app-connection-monitor',
   templateUrl: './connection-monitor-container.component.html',
-  styleUrls: ['./connection-monitor-container.component.scss']
+  styleUrls: ['./connection-monitor-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConnectionMonitorContainer implements OnInit {
   isOnline$: Observable<boolean>;

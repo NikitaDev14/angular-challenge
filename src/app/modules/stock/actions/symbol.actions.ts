@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+
 import { StockSymbol } from '../models/symbol.models';
 
 export const LOAD_ACTION = '[SymbolActions] LOAD_ACTIONS';

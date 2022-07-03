@@ -12,8 +12,8 @@ import { StockSymbol } from '../models/symbol.models';
   providedIn: 'root'
 })
 export class FinnhubService {
-  private webSocket$: WebSocketSubject<any>;
-  private isConnectedSubject$: Subject<boolean> = new Subject();
+  private readonly webSocket$: WebSocketSubject<any>;
+  private readonly isConnectedSubject$: Subject<boolean> = new Subject();
 
   constructor(
     private http$: HttpClient,
@@ -102,8 +102,9 @@ export class FinnhubService {
       },
     ).pipe(
       map((response: any) => response),
-      concatMap(({description, displaySymbol, type}: {description: string, displaySymbol: string, type: string}) =>
-        of ({
+      mergeMap((response: any[]) => response),
+      concatMap(({description, displaySymbol, type}: { description: string, displaySymbol: string, type: string }) =>
+        of({
           description,
           displaySymbol,
           type,

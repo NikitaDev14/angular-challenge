@@ -1,6 +1,6 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit } from '@angular/core';
 import { combineLatest, Observable, Subject } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { StockSymbol } from '../../models/symbol.models';
@@ -9,6 +9,7 @@ import { StockSymbol } from '../../models/symbol.models';
   selector: 'app-ticker-input',
   templateUrl: './ticker-input.component.html',
   styleUrls: ['./ticker-input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => TickerInputComponent),
@@ -27,9 +28,7 @@ export class TickerInputComponent implements OnInit, ControlValueAccessor {
   inputValue: string;
 
   ngOnInit(): void {
-    this.input$ = this.inputSubject$.asObservable().pipe(
-      shareReplay(1),
-    );
+    this.input$ = this.inputSubject$.asObservable();
 
     this.showAutocomplete$ = combineLatest([
       this.focusSubject$.asObservable(),
@@ -60,11 +59,9 @@ export class TickerInputComponent implements OnInit, ControlValueAccessor {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
-  }
+  registerOnTouched(fn: any): void { }
 
   writeValue(value: string): void {
     this.inputSubject$.next(value);
   }
-
 }

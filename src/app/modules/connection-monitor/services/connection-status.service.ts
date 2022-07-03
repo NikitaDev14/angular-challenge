@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
-import {
-  Observable,
-  fromEvent as observableFromEvent,
-  merge as observableMerge,
-} from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { Observable, fromEvent, merge } from 'rxjs';
+import { map, shareReplay, startWith } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConnectionStatusService {
   onConnectionStatusChanged(): Observable<boolean> {
-    return observableMerge(
-      observableFromEvent(window, 'online'),
-      observableFromEvent(window, 'offline'),
+    return merge(
+      fromEvent(window, 'online'),
+      fromEvent(window, 'offline'),
     ).pipe(
       map((event: Event) =>
         event.type === 'online',
       ),
       startWith(navigator.onLine),
+      shareReplay(1),
     );
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mergeMap, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
@@ -9,15 +9,15 @@ import { CloseAction, SUBSCRIBE_TO_GLOBAL_CLICK_ACTION } from '../actions/contex
 @Injectable()
 export class ContextMenuEffects {
 
-  @Effect()
-  subscribeToGlobalClick$ = this.actions$.pipe(
-    ofType(SUBSCRIBE_TO_GLOBAL_CLICK_ACTION),
-    switchMap(() =>
-      this.contextMenuService.globalClick().pipe(
-        mergeMap(() => of(new CloseAction())),
+  subscribeToGlobalClick$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SUBSCRIBE_TO_GLOBAL_CLICK_ACTION),
+      switchMap(() =>
+        this.contextMenuService.globalClick().pipe(
+          mergeMap(() => of(new CloseAction())),
+        ),
       ),
-    ),
-  );
+    ),{dispatch: false});
 
   constructor(
     private actions$: Actions,

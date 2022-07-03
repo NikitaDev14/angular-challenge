@@ -1,17 +1,21 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, TemplateRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
 
 import { SharedFeaturesState } from '../../states';
 import { ContextMenuPosition } from '../../models/context-menu.models';
-import { selectContextMenuPosition, selectContextMenuTemplate, selectIsContextMenuOpened } from '../../selectors/context-menu.selectors';
+import {
+  selectContextMenuPosition,
+  selectContextMenuTemplate,
+  selectIsContextMenuOpened
+} from '../../selectors/context-menu.selectors';
 import { SubscribeToGlobalClickAction } from '../../actions/context-menu.actions';
 
 @Component({
   selector: 'app-context-menu',
   templateUrl: './context-menu-container.component.html',
-  styleUrls: ['./context-menu-container.component.scss']
+  styleUrls: ['./context-menu-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContextMenuContainer implements OnInit {
   position$: Observable<ContextMenuPosition>;
@@ -25,10 +29,7 @@ export class ContextMenuContainer implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new SubscribeToGlobalClickAction());
 
-    this.position$ = this.store.select(selectContextMenuPosition).pipe(
-      shareReplay(1),
-    );
-
+    this.position$ = this.store.select(selectContextMenuPosition);
     this.isShownMenu$ = this.store.select(selectIsContextMenuOpened);
     this.menuTemplate$ = this.store.select(selectContextMenuTemplate);
   }

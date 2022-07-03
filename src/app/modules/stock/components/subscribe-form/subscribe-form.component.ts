@@ -1,5 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators
+} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { first, map } from 'rxjs/operators';
@@ -12,6 +19,7 @@ import { selectSymbols } from '../../selectors/symbol.selectors';
   selector: 'app-subscribe-form',
   templateUrl: './subscribe-form.component.html',
   styleUrls: ['./subscribe-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubscribeFormComponent {
   @Input() availableSymbols: ReadonlyArray<StockSymbol>;

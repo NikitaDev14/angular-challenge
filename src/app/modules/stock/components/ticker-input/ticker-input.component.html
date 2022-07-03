@@ -9,6 +9,8 @@
     id="inputTicker"
     autocapitalize="characters"
     style="text-transform: uppercase"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
     placeholder="Ticker"
     aria-label="Ticker"
     [(ngModel)]="inputValue"
@@ -17,8 +19,7 @@
   <div class="dropdown-menu" [hidden]="!(showAutocomplete$ | async)">
     <button
       class="dropdown-item" type="button"
-      *ngFor="let symbol of symbols | filter : 'displaySymbol' : (input$ |
-      async) | slice : 0 : 20"
+      *ngFor="let symbol of symbols | filter : 'displaySymbol' : (input$ | async) | slice : 0 : 10"
       (click)="onSelectTicker(symbol)">
       {{symbol.displaySymbol}} | {{symbol.description}} | {{symbol.type}}
     </button>
